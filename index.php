@@ -14,7 +14,7 @@ $(document).ready(function(){
                 $("#showText").text("404");
             } else {
                 $("#showText").text(ret.text);
-                if ($login_enable == true && ret.user != ""){
+                if (<?php echo $login_enable ?> == 1 && ret.user != ""){
                     $("#showUser").text("来自 " + ret.user + "的分享");
                 }
             }
