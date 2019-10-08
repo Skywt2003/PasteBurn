@@ -18,12 +18,9 @@
     <body>
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo $siteurl ?>">Burn</a>
+                <a class="navbar-brand" href="<?php echo $siteurl ?>">PasteBurn</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://skywt.cn/">Blog</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="api.php">API</a>
                         </li>
