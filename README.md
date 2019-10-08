@@ -1,5 +1,7 @@
 # Paste burn
 
+![screenshot.png](https://skywt.cn/paste/screenshot.png)
+
 阅后即焚。
 Burning after reading.
 
@@ -30,4 +32,9 @@ git clone https://github.com/Skywt2003/PasteBurn.git
 - 可使用 API 接口
 - 登陆后文字可以记录分享者
 
-用户功能暂未开发完善……
+**当前登录模块无法保证安全性，建议关闭。**
+
+## Todo
+
+- [ ] JWT 登录
+- [ ] 用户页面管理已分享的文字
