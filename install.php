@@ -16,7 +16,7 @@ textContent TEXT(65535) NOT NULL,
 textUser VARCHAR(255) NOT NULL,
 date TIMESTAMP
 )";
- 
+
 if ($conn->query($sql) === TRUE) {
     echo "成功创建数据库 pb_content <br>";
 } else {
@@ -39,4 +39,7 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
+
+echo "完成。";
+
 ?>

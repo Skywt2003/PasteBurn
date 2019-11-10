@@ -1,17 +1,25 @@
 <?php
+
+/*
+ * 用户中心 页面
+ * Todo: 已分享的文字管理
+ */
+
 include 'functions.php';
 if ($login_enable == false) header("location: index.php");
 include 'header.php';
 ?>
 
 <div class="container maincontent">
-    <?php if (isset($_COOKIE['user']) == false){
-        header ( "location:login.php" );
-    } else if (checkLogin($_COOKIE['user'],$_COOKIE['pswd']) == false){ // 登录验证
-        header ( "location:logout.php" );
+    <?php if (isset($_COOKIE['pb_token']) == false){
+        header ( "location: login.php?from=logout" );
+    } else if (Jwt::verifyToken($_COOKIE['pb_token']) == false){
+        setcookie("pb_user", "", time()-3600);
+        setcookie("pb_token", "", time()-3600);
+        header ( "location: login.php?from=logout" );
     } else { ?>
-        <p>Welcome back, <?php echo $_COOKIE['user']; ?>.</p>
-        <p>更多功能正在开发中……</p>
+        <p>Welcome back, <?php echo $_COOKIE['pb_user']; ?>.</p>
+        
     <?php } ?>
 </div>
 

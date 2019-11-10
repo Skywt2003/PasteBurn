@@ -1,5 +1,14 @@
 <?php
+
+/*
+ * 一些常用的函数
+ * 包括载入配置文件、连接数据库
+ */
+
 include 'config.php';
+include 'jwt.php';
+
+$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
 
 function create_uuid($prefix = ""){
     $str = md5(uniqid(mt_rand(), true));  
@@ -11,14 +20,13 @@ function create_uuid($prefix = ""){
     return $prefix . $uuid;
 }
 
-function checkLogin($user, $pswd_md5){
-    global $db_servername, $db_username, $db_password, $db_name;
+function checkUser($user, $pswd){
+    global $conn;
     
-    $conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
     $result = mysqli_query($conn,"SELECT * FROM pb_users WHERE userName='$user' ");
     
     if ($row = mysqli_fetch_array($result)){
-        return (md5($row['userPassword']) == $pswd_md5);
+        return ($row['userPassword'] == $pswd);
     } else {
         return false;
     }

@@ -1,52 +1,59 @@
 <?php
+/*
+ * 登录页面
+ */
+
 include 'functions.php';
 if ($login_enable == false) header("location: index.php");
-
-if ($_POST['username'] != ""){
-    // session_destroy();
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
-    $conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
-    $result = mysqli_query($conn,"SELECT * FROM pb_users
-    WHERE userName='$username' AND userPassword='$password' ");
-    
-    if ($row = mysqli_fetch_array($result)){
-        setcookie("user", $username, time()+3600 );
-        setcookie("pswd", md5($password), time()+3600 );
-        // session_start();
-        // $_SESSION['user'] = $username;
-        $failed = false;
-        header ( "location:user.php" );
-    } else {
-        $failed = true;
-    }
-}
-
 include 'header.php';
 ?>
 
+<script>
+$(document).ready(function(){
+    $("#submit").click(function(){
+        $.post("./api/login.php",
+        {
+            user: $("#username").val(),
+            pswd: $("#password").val()
+        },
+        function(data,status){
+            var ret = JSON.parse(data);
+            if (ret.success == false){
+                $("#hint").addClass("alert alert-danger");
+                $("#hint").text("Login failed：" + ret.info);
+            } else {
+                document.cookie="pb_token=" + ret.token;
+                document.cookie="pb_user=" + $("#username").val();
+                window.location.href="user.php";
+            }
+        });
+    });
+});
+</script>
+
 <div class="container maincontent">
-    <?php if (isset($_COOKIE['user']) == false){ ?>
+    <?php if (isset($_COOKIE['pb_token']) == false){ ?>
         <h3>Login</h3>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+        <form id="main">
+            <?php if ($_GET['from'] == 'logout') {?>
+                <div id="hint" class="alert alert-info">您已登出，请重新登录。</div>
+            <?php } ?>
+            <?php if ($_GET['from'] == 'register') {?>
+                <div id="hint" class="alert alert-info">注册成功，请登录。</div>
+            <?php } ?>
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="Username">
+                <input type="text" id="username" class="form-control" placeholder="Username">
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" id="password" class="form-control" placeholder="Password">
             </div>
             <!--<div class="custom-control custom-checkbox">-->
             <!--    <input type="checkbox" class="custom-control-input" id="customCheck" name="remenber">-->
             <!--    <label class="custom-control-label" for="customCheck">Remenber me</label>-->
             <!--</div> <br>-->
-            <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+            <button id="submit" type="button" class="btn btn-primary">Submit</button>
         </form> <br>
-        <?php if ($failed){?>
-            <div class="alert alert-danger">
-                Login failed, please try again.
-            </div>
-        <?php } ?>
+        <div id="hint"></div>
     <?php } else header ( "location:user.php" ); ?>
 </div>
 

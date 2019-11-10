@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * 注册页面
+ * 还未测试
+ * Todo: 一定要安排一个 reCAPTCHA！！！
+ */
+
 include 'functions.php';
 if ($login_enable == false) header("location: index.php");
 
@@ -47,7 +54,7 @@ include 'header.php';
             <div class="alert alert-danger">
                 <?php echo $errinfo ?>
             </div>
-        <?php } else if ($suc) header("location:login.php") ?>
+        <?php } else if ($suc) header("location:login.php?from=register") ?>
     <?php } ?>
 </div>
 

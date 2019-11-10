@@ -6,14 +6,14 @@ $db_username = "yourUsername";
 $db_password = "yourPassword";
 $db_name = "yourDBName";
 
-// 调试模式，开启后阅后不焚并且输出数据库连接信息
+// 调试模式，开启后阅后不焚
 $debug = false;
 
 // 程序安装的根目录，记得在 url 最后加上斜杠 "/" ……
 $siteurl = "https://yoururl.com/path/";
 
 // 是否开启用户功能……
-$login_enable = false;
+$login_enable = true;
 // 是否允许注册
 $register_enable = false;
 
