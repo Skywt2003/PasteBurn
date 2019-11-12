@@ -25,7 +25,7 @@ $(document).ready(function(){
             } else {
                 $("#showText").text(ret.text);
                 $("#showUser").addClass("text-info");
-                if (<?php echo $login_enable ?> == 1 && ret.user != ""){
+                if (<?php echo LOGIN_ENABLE ?> == true && ret.user != ""){
                     if (ret.time != 'NULL') $("#showUser").text("Shared by " + ret.user + " at " + ret.time);
                     else $("#showUser").text("Shared by " + ret.user);
                 } else {
@@ -39,7 +39,7 @@ $(document).ready(function(){
     $("#submit").click(function(){
         $.post("./api/push.php",
         {
-            <?php if ($login_enable == false || isset($_COOKIE['pb_token']) == false) { ?>
+            <?php if (LOGIN_ENABLE == false || isset($_COOKIE['pb_token']) == false) { ?>
                 text: $("#burntext").val(),
                 savetime: $("#rcdTime").prop('checked')
             <?php } else {?>
@@ -55,7 +55,7 @@ $(document).ready(function(){
                 $("#hint").text("ERROR: " + ret.info);
             } else {
                 $("#hint").addClass("alert alert-info");
-                $("#hint").text("Please share this URL: <?php echo $siteurl ?>?id=" + ret.info);
+                $("#hint").text("Please share this URL: <?php echo SITEURL ?>?id=" + ret.info);
             }
         });
     });

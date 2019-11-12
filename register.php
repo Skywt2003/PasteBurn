@@ -7,14 +7,12 @@
  */
 
 include 'functions.php';
-if ($login_enable == false) header("location: index.php");
+if (LOGIN_ENABLE == false) header("location: index.php");
 
 if ($_POST['username'] != ""){
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    
-    $conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
     
     $result = mysqli_query($conn,"SELECT * FROM pb_users WHERE userName='$username' OR userEmail='$email' ");
     if ($row = mysqli_fetch_array($result)){
@@ -31,7 +29,7 @@ include 'header.php';
 ?>
 
 <div class="container maincontent">
-    <?php if ($register_enable == false){ ?>
+    <?php if (REGISTER_ENABLE == false){ ?>
         <div class="alert alert-info">
             暂时不开放注册。
         </div>

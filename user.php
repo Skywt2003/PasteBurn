@@ -6,7 +6,7 @@
  */
 
 include 'functions.php';
-if ($login_enable == false) header("location: index.php");
+if (LOGIN_ENABLE == false) header("location: index.php");
 include 'header.php';
 ?>
 

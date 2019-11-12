@@ -18,7 +18,7 @@
     <body>
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo $siteurl ?>">PasteBurn</a>
+                <a class="navbar-brand" href="<?php echo SITEURL ?>">PasteBurn</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -31,7 +31,7 @@
                             <a class="nav-link" href="about.php">About</a>
                         </li>
                     </ul>
-                    <?php if ($login_enable == true) {?>
+                    <?php if (LOGIN_ENABLE == true) {?>
                         <ul class="navbar-nav navbar-right">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

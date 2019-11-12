@@ -4,7 +4,7 @@ echo "请确保在 config.php 中配置了所有内容。<br>";
 
 include 'config.php';
 
-$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+$conn = new mysqli(DB_SERVERNAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if ($conn->connect_error) {
     die("连接数据库失败：" . $conn->connect_error);
 }
