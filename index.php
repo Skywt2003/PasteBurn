@@ -23,10 +23,11 @@ $(document).ready(function(){
             if (ret.success == false){
                 $("#showText").text(ret.info);
             } else {
-                $("#showText").text(ret.text);
+                // jQuery 一句话反转义 https://www.cnblogs.com/woostundy/p/4138173.html
+                $("#showText").text($('<div>').html(ret.text).text());
                 $("#showUser").addClass("text-info");
                 if (<?php echo LOGIN_ENABLE ?> == true && ret.user != ""){
-                    if (ret.time != 'NULL') $("#showUser").text("Shared by " + ret.user + " at " + ret.time);
+                    if (ret.time != null) $("#showUser").text("Shared by " + ret.user + " at " + ret.time);
                     else $("#showUser").text("Shared by " + ret.user);
                 } else {
                     if (ret.time != null) $("#showUser").text("Shared at " + ret.time);
@@ -51,9 +52,11 @@ $(document).ready(function(){
         function(data,status){
             var ret = JSON.parse(data);
             if (ret.success == false){
+                $("#hint").removeClass($("#hint").attr("class"));
                 $("#hint").addClass("alert alert-danger");
                 $("#hint").text("ERROR: " + ret.info);
             } else {
+                $("#hint").removeClass($("#hint").attr("class"));
                 $("#hint").addClass("alert alert-info");
                 $("#hint").text("Please share this URL: <?php echo SITEURL ?>?id=" + ret.info);
             }

@@ -24,5 +24,3 @@ if ($row = mysqli_fetch_array($result)){
 if (DEBUG_MODE == false) mysqli_query($conn, "DELETE FROM pb_content WHERE textId='$uid' ");
 
 exit(json_encode($ret));
-
-?>

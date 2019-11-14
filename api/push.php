@@ -16,6 +16,7 @@ if ($conn->connect_error){
 }
 
 $burntext = $_POST['text'];
+$burntext = htmlspecialchars($burntext,ENT_QUOTES);
 $savetime = $_POST['savetime'];
 $token = $_POST['token'];
 
@@ -23,7 +24,6 @@ if (!empty($token)) $payload = Jwt::verifyToken($token);
 
 $uid = create_uuid();
 
-// $date = ($savetime=='true')?date("Y-m-d H:i:s"):NULL;
 if ($savetime == 'true') $date = "'".date("Y-m-d H:i:s")."'"; else $date = 'NULL';
 
 if ($token == ""){
@@ -42,4 +42,3 @@ if ($conn->query($sql) === TRUE){
     $ret = array('success' => false, 'info' => 'Unknow error');
 }
 exit(json_encode($ret));
-?>
