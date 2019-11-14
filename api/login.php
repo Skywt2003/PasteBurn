@@ -17,13 +17,13 @@ if ($conn->connect_error){
 
 $user = $_POST['user'];
 $pswd = $_POST['pswd'];
-    
+
 if (checkUser($user,$pswd) == false){
     $ret = array('success' => false, 'info' => 'User invalid', 'token' => '');
     die(json_encode($ret));
 }
 
-$payload = array('iat'=>time(),'exp'=>time() + ($maintain_time==0?86400:$maintain_time),'nbf'=>time(),'sub'=>$user,'name'=>$user,'jti'=>md5(uniqid('JWT').time()));;
+$payload = array('iat'=>time(),'exp'=>time() + ($maintain_time?$maintain_time:86400),'nbf'=>time(),'sub'=>$user,'name'=>$user,'jti'=>md5(uniqid('JWT').time()));;
 $token = Jwt::getToken($payload);
 
 $ret = array('success' => true, 'info' => '', 'token' => $token);

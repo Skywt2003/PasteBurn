@@ -10,16 +10,20 @@ include 'functions.php';
 if (LOGIN_ENABLE == false) header("location: index.php");
 
 if ($_POST['username'] != ""){
+    require_once('phpass-0.5/PasswordHash.php');
+    $hasher = new PasswordHash(8, false);
+    
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $hashedPassword = $hasher->HashPassword($password);
     
     $result = mysqli_query($conn,"SELECT * FROM pb_users WHERE userName='$username' OR userEmail='$email' ");
     if ($row = mysqli_fetch_array($result)){
         $failed = true;
         $errinfo = "用户名或 Email 已存在";
     } else {
-        $sql = "INSERT INTO pb_users (userName, userPassword, userPermission, userEmail) VALUES ('$username', '$password', 0, '$email')";
+        $sql = "INSERT INTO pb_users (userName, userPassword, userPermission, userEmail) VALUES ('$username', '$hashedPassword', 0, '$email')";
         $failed = ($conn->query($sql) == false);
         if ($failed) $errinfo = "数据库错误"; else $suc=true;
     }

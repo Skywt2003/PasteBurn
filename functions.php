@@ -134,8 +134,11 @@ function checkUser($user, $pswd){
     
     $result = mysqli_query($conn,"SELECT * FROM pb_users WHERE userName='$user' ");
     
+    require_once('phpass-0.5/PasswordHash.php');
+    $hasher = new PasswordHash(8, false);
+    
     if ($row = mysqli_fetch_array($result)){
-        return ($row['userPassword'] == $pswd);
+        return $hasher->CheckPassword($pswd, $row['userPassword']);
     } else {
         return false;
     }
